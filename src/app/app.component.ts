@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FintualService } from './services/fintual.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -21,7 +21,7 @@ export class AppComponent {
   private fintualService = inject(FintualService);
 
   fundsData = signal<any[]>([]);
-
+  
   fromDate: string = '2019-04-22'; // Default
   toDate: string = new Date().toISOString().split('T')[0]; // Today’s date
 
