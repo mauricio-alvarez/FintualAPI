@@ -42,7 +42,7 @@ details p {
 }
 
 
-  .date-container {
+.date-container {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -52,7 +52,7 @@ details p {
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  max-width: 100%;
   margin: 20px auto;
 }
 
@@ -63,6 +63,9 @@ details p {
 }
 
 .styled-input {
+  flex: 1;
+  min-width: 120px;
+  margin-left: 10px;
   padding: 8px 12px;
   border: 1px solid var(--gray-700);
   border-radius: 6px;
@@ -78,6 +81,8 @@ details p {
 
 .styled-button {
   padding: 10px 16px;
+  margin-left: 10px;
+  margin-right: 10px;
   border: none;
   border-radius: 6px;
   background: var(--bright-blue);
@@ -194,7 +199,7 @@ details p {
     margin-top: 1.75rem;
   }
 
-@media (max-width: 600px) {
+@media (max-width:80%) {
   .faq-section {
     width: 95%; /* Expand width slightly on mobile */
     margin-top: 2rem; /* Reduce top margin */
@@ -221,7 +226,20 @@ details p {
     flex-direction: column;
     width: max-content;
   }
+.date-container {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
 
+  .styled-input {
+    width: 100%;
+  }
+
+  .styled-button {
+    width: 100%;
+    text-align: center;
+  }
   }
 </style>
 
@@ -275,17 +293,22 @@ details p {
         </svg>
       </div>
       
-      <h1>Hello, {{ title }}</h1>
+      <h1>{{ title }}</h1>
         <!-- Date Selection Inputs -->
       <div class="date-container">
-        <label for="fromDate">From:</label>
-        <input type="date" id="fromDate" [(ngModel)]="fromDate" class="styled-input">
-
-        <label for="toDate">To:</label>
-        <input type="date" id="toDate" [(ngModel)]="toDate" class="styled-input">
-
-        <button (click)="updateChart()" class="styled-button">Update Chart</button>
-        <button (click)="resetDates()" class="styled-button secondary">Restart Chart</button>
+        <div class="fromDate"> 
+          <label for="fromDate">From:</label>
+          <input type="date" id="fromDate" [(ngModel)]="fromDate" class="styled-input">
+        </div>
+        <div class="ToDate">
+          <label for="toDate">To:</label>
+          <input type="date" id="toDate" [(ngModel)]="toDate" class="styled-input">
+        </div>
+        
+        <div class="Button container">
+          <button (click)="updateChart()" class="styled-button">Update Chart</button>
+          <button (click)="resetDates()" class="styled-button secondary">Restart Chart</button>
+        </div>
       </div>
 
       <div *ngIf="fundsData().length > 0; else loading">
