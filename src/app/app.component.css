@@ -1,0 +1,15 @@
+::ng-deep .legend-label {
+    font-size: 20px !important; /* Increase font size */
+    font-weight: bold !important; /* Make it bolder */
+    color: var(--gray-900) !important; /* Darker color */
+    margin-bottom: 20px !important; /* Add more spacing */
+}
+
+::ng-deep .legend-title{
+    margin-top: 15px !important;
+}
+
+::ng-deep .chart-legend .legend-label{
+    margin-right: 25px !important;
+    margin-left: 25px !important;
+}

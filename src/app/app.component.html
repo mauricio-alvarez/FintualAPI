@@ -1,4 +1,62 @@
 <style>
+  .date-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-400);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.date-container label {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 0.9rem;
+}
+
+.styled-input {
+  padding: 8px 12px;
+  border: 1px solid var(--gray-700);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.styled-input:focus {
+  border-color: var(--bright-blue);
+  box-shadow: 0px 0px 6px rgba(0, 0, 255, 0.2);
+}
+
+.styled-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--bright-blue);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.styled-button:hover {
+  background: var(--electric-violet);
+}
+
+.styled-button.secondary {
+  background: var(--gray-700);
+}
+
+.styled-button.secondary:hover {
+  background: var(--gray-900);
+}
+
   .cardBody{
     padding: 10px;
     background: white;
@@ -17,7 +75,7 @@
     flex-direction: column;  /* Ensure items are stacked vertically */
     align-items: center;  /* Center items horizontally */
     width: 100%;
-    max-width: 700px;
+    max-width: 1000px;
     margin-bottom: 3rem;
   }
 
@@ -153,28 +211,40 @@
       </div>
       
       <h1>Hello, {{ title }}</h1>
-        
+        <!-- Date Selection Inputs -->
+      <div class="date-container">
+        <label for="fromDate">From:</label>
+        <input type="date" id="fromDate" [(ngModel)]="fromDate" class="styled-input">
+
+        <label for="toDate">To:</label>
+        <input type="date" id="toDate" [(ngModel)]="toDate" class="styled-input">
+
+        <button (click)="updateChart()" class="styled-button">Update Chart</button>
+        <button (click)="resetDates()" class="styled-button secondary">Restart Chart</button>
+      </div>
+
       <div *ngIf="fundsData().length > 0; else loading">
         <div #containerRef id="divCont"  class="cardBody"> 
           <ngx-charts-line-chart
             [results]="fundsData()"
+            [animations]="true"
             [legend]="true"
-            [legendPosition]="legendPosition" 
+            [legendPosition]="legendPosition"
             [xAxis]="true"
             [yAxis]="true"
+            [xAxisTickFormatting]="formatXAxis"
+            [yAxisTickFormatting]="formatYAxis"
             [showGridLines]="true"
-            [xAxis]="true"
-            [yAxis]="true"
             [autoScale]="true">
           </ngx-charts-line-chart>
+
         </div>
       </div>
       
       <ng-template #loading>
         <p>Loading fund data...</p>
-      </ng-template>
-      
-
+      </ng-template>      
     </div>
+    
     
 </main>

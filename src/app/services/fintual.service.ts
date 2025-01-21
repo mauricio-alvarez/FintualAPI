@@ -27,30 +27,29 @@ export class FintualService {
   }
 
   /** Fetch fund price history for a given fund ID */
-  getFundHistory(fundId: number): Observable<{ name: string; series: { name: string; value: number }[] }> {
-    const today = this.getTodayDate();
-    const url = `${this.baseUrl}/${fundId}/days?to_date=${today}`;
+  getFundHistory(fundId: number, fromDate: string, toDate: string): Observable<{ name: string; series: { name: string; value: number }[] }> {
+    const url = `${this.baseUrl}/${fundId}/days?from_date=${fromDate}&to_date=${toDate}`;
 
     return this.http.get<any>(url).pipe(
       map((response) => ({
-        name: this.fundNames[fundId] || `Fund ${fundId}`, // Usa el nombre personalizado o el ID si no está en la lista
+        name: this.fundNames[fundId] || `Fund ${fundId}`,
         series: response.data
           .map((item: any) => ({
-            name: new Date(item.attributes.date),
+            name: item.attributes.date,
             value: item.attributes.price,
           }))
-          .sort((a: any, b: any) => b.name.getTime() - a.name.getTime()) // Ordenar por fecha descendente
+          .sort((a: { name: string }, b: { name: string }) => new Date(a.name).getTime() - new Date(b.name).getTime())
       }))
     );
   }
 
   constructor() {}
 
-  /** Fetch all 4 funds and combine results */
-  getAllFunds(): Observable<any[]> {
+  /** Fetch all funds with custom date range */
+  getAllFunds(fromDate: string, toDate: string): Observable<any[]> {
     const fundIds = Object.keys(this.fundNames).map(Number);
-    const requests = fundIds.map((id) => this.getFundHistory(id));
-    return forkJoin(requests); // Ejecuta todas las llamadas API en paralelo
+    const requests = fundIds.map((id) => this.getFundHistory(id, fromDate, toDate));
+    return forkJoin(requests);
   }
 
   /** Fetches asset details by ID */
