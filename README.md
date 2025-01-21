@@ -12,48 +12,22 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## Documentación
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+En este proyecto he utilizado *Angular 19*, la última versión estable, junto con la  librería *ngx-charts* para poder mostrar  el gráfico.
 
-```bash
-ng generate component component-name
-```
+### Estructura de Archivos
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Dentro de la carpeta *src/* los siguientes archivos se generan por defecto:
+- main.server.ts: Punto de entrada principal para la versión server-side rendering (SSR) de la aplicación Angular.
+- main.ts: Punto de entrada principal de la aplicación Angular para el cliente (browser). Se encarga de inicializar el módulo principal de la app.
+- server.ts: Configuración del servidor de Angular Universal (SSR). Define cómo la aplicación maneja las solicitudes HTTP del servidor.
+- styles.css: Archivo de estilos globales donde se definen los estilos base de la aplicación, no fue necesario utilizar estilos globales, se usaron en cada componente (ej. app.component.css).
+- index.hmtl: Contiene la estructura HTML básica de la aplicación. Incluye la etiqueta <app-root></app-root> donde Angular inyecta los componentes.
 
-```bash
-ng generate --help
-```
+Además, dentro de la carpeta *src/app/*, tenemos otros archivos importantes:
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- app.component.ts: Componente principal de la aplicación, que contiene la lógica principal y gestiona el gráfico de ngx-charts.
+- app.component.html: Plantilla HTML del componente principal, donde se define la estructura visual del gráfico y otros elementos.
+- app.component.css: Estilos específicos del componente principal.
+- fintual.service.ts: Servicio encargado de realizar peticiones HTTP a la API de Fintual para obtener los datos de los fondos de inversión.
